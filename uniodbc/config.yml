@@ -1,0 +1,10 @@
+--
+  conn_1:
+    comment: First connection object!
+    params:
+      driver: SQL Server
+      server: <Server Name>
+      uid: <username>
+      pwd: <password>
+    module: pyodbc
+...

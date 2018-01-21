@@ -1,0 +1,50 @@
+globals:
+  int_week: 2017-09-25 00:00:00
+  pre_week: 2017-04-24 00:00:00
+
+queries:
+  static_value_example:
+    source: conn_1
+    query_template: template_1
+    parameter_values:
+      var_1:
+        from_csv: file_at_root.csv
+      var_2:
+        value: 5000
+
+
+  static_query_example:
+    source: conn_1 
+    query: >
+      select week_starting from main_db..weekly_scores
+
+  param_from_query:
+    source: conn_1 
+    query_template: template_1 
+    parameter_values:
+      var_1:
+        from_csv: cdrs.csv
+      var_2:
+        from_query: latest_week_starting
+
+  param_from_global:
+    source: conn_1 
+    query_template: template_1 
+    parameter_values:
+      var_1:
+        value: 100
+      var_2:
+        from_global: int_week
+
+query_templates:
+
+  template_1:
+    template: >
+        SELECT some_attribute, some_other_attribute 
+        FROM a_table
+        WHERE
+          some_field = {{var_1}}
+          AND some_other_field = {{var_2}} 
+    parameters:
+      - var_1 
+      - var_2 

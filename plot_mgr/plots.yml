@@ -1,0 +1,66 @@
+plots:
+
+  comparison_1:
+    plot_type: scatter
+    layout:
+      # Titles here are whatever you like to appear on the plot.
+      title: Comparison 1 Title
+      xaxis:
+        title: Dimension Name
+      yaxis:
+        title: Measure Name 
+    traces:
+      - name: First line on these axes
+        data:
+          query: static_value_example 
+          # Dimension is x-axis. Measure is y-axis.
+          # The value of each of these must be the name of a field returned in the query.
+          # In this example 'some_attribute' and 'some_other_attribute' were both returned
+          # as columns in the sql query output.
+          dimension: some_attribute
+          measure: some_other_attribute
+        properties:
+          color: blue
+      - name: Second line on these axes 
+        data:
+          query: param_from_query 
+          dimension: some_attribute
+          measure: some_other_attribute
+        properties:
+          color: orange
+
+  comparison_2:
+    plot_type: scatter
+    layout:
+      title: Comparison 2 Title
+      xaxis:
+        title: Dimension Name
+      yaxis:
+        title: Measure Name 
+        
+    traces:
+      - name: First line on second set of axes
+        data:
+          query: static_value_example 
+          dimension: some_attribute 
+          measure: some_other_attribute 
+        properties:
+          color: blue
+          # Make a dashed line! Follows all plotly properties.
+          dash: dash
+      - name: Second line on second set of axes
+        data:
+          query: param_from_global 
+          dimension: some_attribute
+          measure: some_other_attribute 
+        properties:
+          color: orange
+
+# Here list the plots you would like to build. 
+# Plot names defined above but not mentioned here
+# are not processed - ie data is not pulled from the db. 
+# Essentially 'lazy evaluation'
+# Order sensitive.
+fig_order:
+  - comparison_1
+  - comparison_2
