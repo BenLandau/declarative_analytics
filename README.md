@@ -3,7 +3,7 @@
 This is a declarative framework designed to allow data extraction, manipulation and presentation all without writing a single line of code. The framework exposes YAML APIs for the user to fill in at lightning speed, while letting the Python backend do all the heavy lifting.
 
 Workflow with this software involves three steps:
-	1. Describe what data connections are required for your project (uniodbc/config.yml)
+	1. Describe what data connections are required for your project (`uniodbc/config.yml`)
 	2. Outline the data you would like to make available, using a combination of queries and query templates (`data_mgr/queries.yml`)
 	3. Specify how you would like your plots to look (`plot_mgr/plots.yml`)
 
@@ -37,7 +37,7 @@ All the action takes place in `uniodbc/config.yml`, where you will be defining w
 
 ```
 
-Here we've defined three different data sources: `bilby`, `sqlserver` and `hive`. These names are defined on the shallowest indent, and will be the way you'll refer to these data sources in later steps.
+Here we've defined one data source, `conn_1`. Connection names are defined on the shallowest indent, and will be the way you'll refer to these data sources in later steps.
 
 * The `comment` field allows you to give a brief description of the datasource if you like - you can leave it blank if you like.
 * The `params` field is where you provide the connection parameters. These are roughly your username, password and server name. Different modules give these parameters different names, but the example above covers most of the potential use-cases. 
@@ -116,11 +116,11 @@ Now to the contents of these elements:
 This section is pretty simple, it's just an indented key value pair: `[variable name]: [variable value}`
 
 #### Queries
-There are five queries defined above: `throughput_pdf_recent`, `throughput_pdf_intermediate`, `non_cdr_cells`, `latest_week_starting`, `pdcp_vol_ts`. Names are defined by the top-level query entry, and properties are indented to show they belong to that query name. The properties are:
+There are four queries defined above: `static_value_example`,`static_query_example`,`param_from_query`,`param_from_global`. Names are defined by the top-level query entry, and properties are indented to show they belong to that query name. The properties are:
 
 `source` - The data source name. Here you enter one of the data source names defined in Step 1. This is case sensitive and must match exactly.
-`query_template` or `query`: If wanting to use a `query_template` (as in all the above queries except for `latest_week_starting`), simply write the name of the query template you'd like to use, and the `parameter_values` with which to render the template.
-If using a static `query` (as in `latest_week_starting`, then directly insert the query as seen above. The right angle bracket `>` is required to prevent the program misinterpreting line breaks in your query.
+`query_template` or `query`: If wanting to use a `query_template` (as in all the above queries except for `static_query_example`), simply write the name of the query template you'd like to use, and the `parameter_values` with which to render the template.
+If using a static `query` (as in `static_query_example`, then directly insert the query as seen above. The right angle bracket `>` is required to prevent the program misinterpreting line breaks in your query.
 `type`: Optional parameter used to signal if the `openquery()` function is used within the query. This notifies the query parser that special escaping of characters is required for the server object interface.
 
 `parameter_values` - Required only if using `query_template`. Nest the parameter names under here. As value inputs to the parameters you have a few choices:
